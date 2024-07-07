@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DApp - Network Operator Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<script>
+    // Check viewport width on page load
+    window.onload = function() {
+        if (window.innerWidth <= 730) {
+            window.location.href = 'welcome.html'; // Redirect to mobile.html or your desired URL
+        }
+    };
+
+</script>
+<body>
+    <div class="branding">
+        <img src="logo.png" alt="DApp Logo" class="logo">
+        <!-- <h1>DApp Network Operator Portal</h1> -->
+    </div>
+    <div class="container">
+        <div class="form-container" id="register-container">
+            <h2>Register</h2>
+            <form id="register-form">
+                <label for="companyName">Company Name</label>
+                <input type="text" id="companyName" name="companyName" required>
+
+                <label for="email">Official Email Address</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="registrationNumber">Business Registration Number</label>
+                <input type="text" id="registrationNumber" name="registrationNumber" required>
+
+                <label for="representativeContact">Authorized Representative’s Contact Information</label>
+                <input type="text" id="representativeContact" name="representativeContact" required>
+
+                <label for="password">Create Password</label>
+                <input type="password" id="password" name="password" required>
+
+                <button type="submit">Register</button>
+                <p>Already have an account? <a href="#" onclick="showLoginForm()">Login here</a></p>
+            </form>
+        </div>
+
+        <div class="form-container" id="login-container" style="display: none;">
+            <h2>Login</h2>
+            <form id="login-form">
+                <label for="loginEmail">Company Official Email ID</label>
+                <input type="email" id="loginEmail" name="loginEmail" >
+
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" name="loginPassword" >
+
+                <button type="submit">Login</button>
+                <p><a href="#">Forgot Password?</a></p>
+                <p>Don't have an account? <a href="#" onclick="showRegisterForm()">Register here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="message-container"></div>
+
+    <script src="scripts.js"></script>
+    <script>    
+        // Function to display messages to the user
+        function showMessage(message) {
+            var messageContainer = document.getElementById('message-container');
+            messageContainer.innerHTML = '<p>' + message + '</p>';
+        }
+
+        // Function to show the login form and hide the register form
+        function showLoginForm() {
+            document.getElementById('register-container').style.display = 'none';
+            document.getElementById('login-container').style.display = 'block';
+            document.getElementById('message-container').innerHTML = ''; // Clear any existing messages
+        }
+
+        // Function to show the register form and hide the login form
+        function showRegisterForm() {
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('register-container').style.display = 'block';
+            document.getElementById('message-container').innerHTML = ''; // Clear any existing messages
+        }
+
+        // Function to handle registration form submission
+        document.getElementById('register-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Get form values
+            var companyName = document.getElementById('companyName').value;
+            var email = document.getElementById('email').value;
+            var registrationNumber = document.getElementById('registrationNumber').value;
+            var representativeContact = document.getElementById('representativeContact').value;
+            var password = document.getElementById('password').value;
+
+            // Here you can perform validation if needed
+
+            // Show registration success message
+            showMessage('Registration successful! Please log in.');
+
+            // Switch to the login form after registration
+            showLoginForm();
+        });
+
+        // Function to handle login form submission
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Perform login validation if needed
+
+            // Redirect to a different webpage after successful login
+            window.location.href = 'welcome.html'; // Replace 'welcome.html' with your desired page
+        });
+
+        // Initialize with registration form
+        document.addEventListener('DOMContentLoaded', function() {
+            showLoginForm(); // Display registration form by default
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+
+</body>
+</html>

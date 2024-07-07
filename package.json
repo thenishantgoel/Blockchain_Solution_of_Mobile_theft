@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@trufflesuite/eth-json-rpc-middleware": "^4.4.2-1",
+    "@trufflesuite/web3-provider-engine": "^15.0.14",
+    "dotenv": "^16.4.5",
+    "node-fetch": "^3.3.2",
+    "request": "^2.88.2",
+    "semver": "^7.6.2",
+    "tough-cookie": "^4.1.4",
+    "web3": "^4.10.0"
+  },
+  "devDependencies": {
+    "@truffle/hdwallet-provider": "^2.1.15"
+  }
+}
