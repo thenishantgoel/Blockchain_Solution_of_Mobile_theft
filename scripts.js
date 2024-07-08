@@ -239,6 +239,7 @@ async function reportLostDevice() {
   spinner.style.display = 'block'; // Show the loading spinner
 
   try {
+    document.getElementById('details-container').style.display = 'none';
     const exists = await IMEIContract.methods.deviceExists(imei).call();
 
         if (exists) {
@@ -275,6 +276,7 @@ async function getLostDeviceDetails() {
   if (!imei) return;
 
   try {
+    document.getElementById('details-container').style.display = 'none';
     const result = await IMEIContract.methods.getLostDevice(imei).call();
     const timestamp = parseInt(result[2]);
     const formattedTimestamp = new Date(timestamp * 1000).toLocaleString();
@@ -298,6 +300,7 @@ async function deviceExists() {
   if (!imei) return;
 
   try {
+    document.getElementById('details-container').style.display = 'none';
     const exists = await IMEIContract.methods.deviceExists(imei).call();
     const message = exists 
       ? `IMEI No. ${imei} is reported.`
@@ -314,6 +317,7 @@ async function deviceExists() {
 
 async function getTotalReportedDevices() {
   try {
+    document.getElementById('details-container').style.display = 'none';
     const total = await IMEIContract.methods.getTotalReportedDevices().call();
     document.getElementById('details-container').style.display = 'block';
     document.getElementById('details-container').innerHTML = `<p>Total Reported Devices: <b>${total}</b></p>`;
