@@ -272,8 +272,11 @@ async function reportLostDevice() {
 
 async function getLostDeviceDetails() {
   const imei = document.getElementById('imeiInput').value;
+  const spinner = document.getElementById('loading-spinner');
 
   if (!imei) return;
+
+  spinner.style.display = 'block'; // Show the loading spinner
 
   try {
     document.getElementById('details-container').style.display = 'none';
@@ -281,10 +284,11 @@ async function getLostDeviceDetails() {
 
         if (!exists) {
             document.getElementById('details-container').style.display = 'block';
-            document.getElementById('details-container').innerHTML = `<p>IMEI: <b>${imei}</b> does <b>NOT</b> exists in the list.</p>`;
+            document.getElementById('details-container').innerHTML = `<p>IMEI: <b>${imei}</b> does <b>NOT</b> exists.</p>`;
             clearTextBox(); // Clear input if IMEI exists
             return;
         }
+    spinner.style.display = 'none';
     document.getElementById('details-container').style.display = 'none';
     const result = await IMEIContract.methods.getLostDevice(imei).call();
     const timestamp = parseInt(result[2]);
@@ -305,29 +309,37 @@ async function getLostDeviceDetails() {
 
 async function deviceExists() {
   const imei = document.getElementById('imeiInput').value;
+  const spinner = document.getElementById('loading-spinner');
 
   if (!imei) return;
+
+  spinner.style.display = 'block'; // Show the loading spinner
 
   try {
     document.getElementById('details-container').style.display = 'none';
     const exists = await IMEIContract.methods.deviceExists(imei).call();
     const message = exists 
-      ? `IMEI No. ${imei} is reported.`
-      : `IMEI No. ${imei} is <b>NOT</b> reported.`;
-
+      ? `IMEI: <b>${imei}</b> is reported.`
+      : `IMEI: <b>${imei}</b> is <b>NOT</b> reported.`;
+      
+    spinner.style.display = 'none';
     document.getElementById('details-container').style.display = 'block';
     document.getElementById('details-container').innerHTML = `<p>${message}</p>`;
     clearTextBox();
-
-  } catch (error) {
+  }
+   catch (error) {
     alert('Error: ' + error.message);
   }
 }
 
 async function getTotalReportedDevices() {
+
+  const spinner = document.getElementById('loading-spinner');
+  spinner.style.display = 'block'; // Show the loading spinner
   try {
     document.getElementById('details-container').style.display = 'none';
     const total = await IMEIContract.methods.getTotalReportedDevices().call();
+    spinner.style.display = 'none';
     document.getElementById('details-container').style.display = 'block';
     document.getElementById('details-container').innerHTML = `<p>Total Reported Devices: <b>${total}</b></p>`;
     clearTextBox();
