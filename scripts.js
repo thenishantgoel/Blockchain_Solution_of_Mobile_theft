@@ -280,7 +280,6 @@ async function getLostDeviceDetails() {
     const exists = await IMEIContract.methods.deviceExists(imei).call();
 
         if (!exists) {
-            spinner.style.display = 'none';
             document.getElementById('details-container').style.display = 'block';
             document.getElementById('details-container').innerHTML = `<p>IMEI: <b>${imei}</b> does <b>NOT</b> exists in the list.</p>`;
             clearTextBox(); // Clear input if IMEI exists
