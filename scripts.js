@@ -187,7 +187,7 @@ async function initialize() {
           imeiInput.addEventListener('keypress', (event) => {
             if (event.key === 'Enter') {
               event.preventDefault(); // Prevent form submission or any default behavior
-              getLostDeviceDetails(); // Call the function to report the lost device
+              reportLostDevice(); // Call the function to report the lost device
             }
           });
         }
