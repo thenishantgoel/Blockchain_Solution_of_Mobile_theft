@@ -162,7 +162,7 @@ async function initialize() {
       console.error("User denied account access:", error);
     }
   } else {
-    alert("Cryptocurrency wallet <b>NOT</b> detected.");
+    alert("Cryptocurrency wallet NOT detected.");
   }
 }
 
