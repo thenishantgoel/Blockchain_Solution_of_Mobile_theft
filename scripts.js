@@ -239,6 +239,15 @@ async function reportLostDevice() {
   spinner.style.display = 'block'; // Show the loading spinner
 
   try {
+    const exists = await IMEIContract.methods.deviceExists(imei).call();
+
+        if (exists) {
+            spinner.style.display = 'none';
+            document.getElementById('details-container').style.display = 'block';
+            document.getElementById('details-container').innerHTML = `<p>IMEI: <b>${imei}</b> already exists in the list.</p>`;
+            clearTextBox(); // Clear input if IMEI exists
+            return;
+        }
     await IMEIContract.methods.reportLostDevice(imei).send({
       from: accounts[0],
       gas: 300000
@@ -256,9 +265,6 @@ async function reportLostDevice() {
   } catch (error) {
     alert('Error: ' + error.message);
   } 
-  // finally {
-  //   spinner.style.display = 'none'; // Hide the loading spinner
-  // }
 }
 
 
