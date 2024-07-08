@@ -277,6 +277,16 @@ async function getLostDeviceDetails() {
 
   try {
     document.getElementById('details-container').style.display = 'none';
+    const exists = await IMEIContract.methods.deviceExists(imei).call();
+
+        if (!exists) {
+            spinner.style.display = 'none';
+            document.getElementById('details-container').style.display = 'block';
+            document.getElementById('details-container').innerHTML = `<p>IMEI: <b>${imei}</b> does <b>NOT</b> exists in the list.</p>`;
+            clearTextBox(); // Clear input if IMEI exists
+            return;
+        }
+    document.getElementById('details-container').style.display = 'none';
     const result = await IMEIContract.methods.getLostDevice(imei).call();
     const timestamp = parseInt(result[2]);
     const formattedTimestamp = new Date(timestamp * 1000).toLocaleString();
