@@ -20,6 +20,31 @@ const IMEI_ABI = [{
       "type": "uint256"
     }
   ],
+  "name": "DeviceDelisted",
+  "type": "event"
+},
+{
+  "anonymous": false,
+  "inputs": [
+    {
+      "indexed": false,
+      "internalType": "string",
+      "name": "imei",
+      "type": "string"
+    },
+    {
+      "indexed": true,
+      "internalType": "address",
+      "name": "reporter",
+      "type": "address"
+    },
+    {
+      "indexed": false,
+      "internalType": "uint256",
+      "name": "timestamp",
+      "type": "uint256"
+    }
+  ],
   "name": "DeviceReported",
   "type": "event"
 },
@@ -63,8 +88,7 @@ const IMEI_ABI = [{
     }
   ],
   "stateMutability": "view",
-  "type": "function",
-  "constant": true
+  "type": "function"
 },
 {
   "inputs": [
@@ -83,8 +107,20 @@ const IMEI_ABI = [{
     }
   ],
   "stateMutability": "view",
-  "type": "function",
-  "constant": true
+  "type": "function"
+},
+{
+  "inputs": [
+    {
+      "internalType": "string",
+      "name": "_imei",
+      "type": "string"
+    }
+  ],
+  "name": "delistDevice",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
 },
 {
   "inputs": [],
@@ -97,8 +133,7 @@ const IMEI_ABI = [{
     }
   ],
   "stateMutability": "view",
-  "type": "function",
-  "constant": true
+  "type": "function"
 },
 {
   "inputs": [],
@@ -111,12 +146,10 @@ const IMEI_ABI = [{
     }
   ],
   "stateMutability": "view",
-  "type": "function",
-  "constant": true
-}
-];
+  "type": "function"
+}];
 
-const IMEI_ADDRESS = '0x9Ba1E7bEe0bbf4BC3034aD2E77a97623721856EF'; // Replace with Seplia's contract address
+const IMEI_ADDRESS = '0x4B7F2ca4502d5760A761035B342c4BCfeCD71051'; // Replace with Seplia's contract address
 
 let web3;
 let IMEIContract;
@@ -163,6 +196,7 @@ async function initialize() {
     }
   } else {
     alert("Cryptocurrency wallet NOT detected.");
+    window.open('https://metamask.io/', '_blank');
   }
 }
 
@@ -348,6 +382,46 @@ async function getTotalReportedDevices() {
     alert('Error: ' + error.message);
   }
 }
+async function delistDevice() {
+  const imei = document.getElementById('imeiInput').value;
+  const spinner = document.getElementById('loading-spinner');
+
+  if (!imei) return;
+
+  spinner.style.display = 'block'; // Show the loading spinner
+
+  try {
+      document.getElementById('details-container').style.display = 'none';
+      const exists = await IMEIContract.methods.deviceExists(imei).call();
+
+      if (!exists) {
+          spinner.style.display = 'none';
+          document.getElementById('details-container').style.display = 'block';
+          document.getElementById('details-container').innerHTML = `<p>IMEI: <b>${imei}</b> does <b>NOT</b> exist.</p>`;
+          clearTextBox();
+          return;
+      }
+
+      await IMEIContract.methods.delistDevice(imei).send({
+          from: accounts[0],
+          gas: 300000
+      });
+
+      spinner.style.display = 'none';
+      document.getElementById('details-container').style.display = 'block';
+      document.getElementById('details-container').innerHTML = `<p>IMEI: <b>${imei}</b> has been delisted successfully.</p>`;
+
+      const imeis = await IMEIContract.methods.getReportedImeis().call();
+      saveIMEIsToLocalStorage(imeis);
+      loadIMEIsFromLocalStorage();
+
+      clearTextBox(); // Clear input after delisting
+
+  } catch (error) {
+      alert('Error: ' + error.message);
+  }
+}
+
 function clearTextBox() {
   const imeiInput = document.getElementById('imeiInput');
   if (imeiInput) {

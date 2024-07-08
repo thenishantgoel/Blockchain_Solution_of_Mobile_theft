@@ -239,7 +239,7 @@ a {
 .loading-spinner {
     display: none; /* Hidden initially */
     position: fixed; /* Ensures the spinner is positioned relative to the viewport */
-    top: 80%; /* Adjust this value to move the spinner vertically */
+    top: 82%; /* Adjust this value to move the spinner vertically */
     left: 370px;
     transform: translate(-50%, -50%);
     border: 4px solid #f3f3f3; /* Light grey */
