@@ -162,7 +162,7 @@ async function initialize() {
       console.error("User denied account access:", error);
     }
   } else {
-    alert("MetaMask is not detected. Please install MetaMask.");
+    alert("Cryptocurrency wallet NOT detected.");
   }
 }
 
