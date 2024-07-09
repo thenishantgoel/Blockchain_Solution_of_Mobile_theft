@@ -317,6 +317,32 @@ a {
         /* text-align: center; */
     
     }
+    .loading-spinner {
+        display: none; /* Hidden initially */
+        position: fixed; /* Ensures the spinner is positioned relative to the viewport */
+        top: 89%; /* Adjust this value to move the spinner vertically */
+        left: 47%;
+        transform: translate(-50%, -50%);
+        border: 4px solid #f3f3f3; /* Light grey */
+        border-top: 4px solid #fe0000; /* Red */
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        animation: spin 2s linear infinite;
+        z-index: 9999; /* Ensure it's above other elements */
+      }
+
+    #details-container{
+        z-index: 2;
+        margin: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        width: 95%;
+    /* flex-direction: column; */
+    justify-content:end; /* Vertical center alignment */
+    align-items: center; /* Horizontal center alignment */
+    }
         
 }
 

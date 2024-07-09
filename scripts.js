@@ -155,6 +155,18 @@ let web3;
 let IMEIContract;
 let accounts;
 let historyVisible = false;
+function isMobileDevice() {
+  return /Mobi|Android/i.test(navigator.userAgent);
+}
+
+function scrollToBottom() {
+  if (isMobileDevice()) {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth' // Smooth scroll
+    });
+  }
+}
 async function initialize() {
   if (typeof window.ethereum !== 'undefined') {
     // Use MetaMask's provider
@@ -280,6 +292,7 @@ async function reportLostDevice() {
             spinner.style.display = 'none';
             document.getElementById('details-container').style.display = 'block';
             document.getElementById('details-container').innerHTML = `<p>IMEI: <b>${imei}</b> already exists in the list.</p>`;
+            scrollToBottom();
             clearTextBox(); // Clear input if IMEI exists
             return;
         }
@@ -295,6 +308,7 @@ async function reportLostDevice() {
     const imeis = await IMEIContract.methods.getReportedImeis().call();
     saveIMEIsToLocalStorage(imeis);
 
+    scrollToBottom();
     clearTextBox(); // Clear input after reporting
 
   } catch (error) {
@@ -319,6 +333,7 @@ async function getLostDeviceDetails() {
         if (!exists) {
             document.getElementById('details-container').style.display = 'block';
             document.getElementById('details-container').innerHTML = `<p>IMEI: <b>${imei}</b> does <b>NOT</b> exists.</p>`;
+            scrollToBottom();
             clearTextBox(); // Clear input if IMEI exists
             return;
         }
@@ -334,6 +349,7 @@ async function getLostDeviceDetails() {
       <b>Reporter'address:</b><br> ${result[1]}<br><br>
       <b>Timestamp:</b><br>${result[2]}<br><br>
       <b>${formattedTimestamp}</b></p>`;
+      scrollToBottom();
       clearTextBox();
 
   } catch (error) {
@@ -359,6 +375,7 @@ async function deviceExists() {
     spinner.style.display = 'none';
     document.getElementById('details-container').style.display = 'block';
     document.getElementById('details-container').innerHTML = `<p>${message}</p>`;
+    scrollToBottom();
     clearTextBox();
   }
    catch (error) {
@@ -376,6 +393,7 @@ async function getTotalReportedDevices() {
     spinner.style.display = 'none';
     document.getElementById('details-container').style.display = 'block';
     document.getElementById('details-container').innerHTML = `<p>Total Reported Devices: <b>${total}</b></p>`;
+    scrollToBottom();
     clearTextBox();
 
   } catch (error) {
@@ -398,6 +416,7 @@ async function delistDevice() {
           spinner.style.display = 'none';
           document.getElementById('details-container').style.display = 'block';
           document.getElementById('details-container').innerHTML = `<p>IMEI: <b>${imei}</b> does <b>NOT</b> exist.</p>`;
+          scrollToBottom();
           clearTextBox();
           return;
       }
@@ -415,6 +434,7 @@ async function delistDevice() {
       saveIMEIsToLocalStorage(imeis);
       loadIMEIsFromLocalStorage();
 
+      scrollToBottom();
       clearTextBox(); // Clear input after delisting
 
   } catch (error) {
