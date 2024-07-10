@@ -1,155 +1,155 @@
-const IMEI_ABI = [{
-  "anonymous": false,
-  "inputs": [
-    {
-      "indexed": false,
-      "internalType": "string",
-      "name": "imei",
-      "type": "string"
-    },
-    {
-      "indexed": true,
-      "internalType": "address",
-      "name": "reporter",
-      "type": "address"
-    },
-    {
-      "indexed": false,
-      "internalType": "uint256",
-      "name": "timestamp",
-      "type": "uint256"
-    }
-  ],
-  "name": "DeviceDelisted",
-  "type": "event"
-},
-{
-  "anonymous": false,
-  "inputs": [
-    {
-      "indexed": false,
-      "internalType": "string",
-      "name": "imei",
-      "type": "string"
-    },
-    {
-      "indexed": true,
-      "internalType": "address",
-      "name": "reporter",
-      "type": "address"
-    },
-    {
-      "indexed": false,
-      "internalType": "uint256",
-      "name": "timestamp",
-      "type": "uint256"
-    }
-  ],
-  "name": "DeviceReported",
-  "type": "event"
-},
-{
-  "inputs": [
-    {
-      "internalType": "string",
-      "name": "_imei",
-      "type": "string"
-    }
-  ],
-  "name": "reportLostDevice",
-  "outputs": [],
-  "stateMutability": "nonpayable",
-  "type": "function"
-},
-{
-  "inputs": [
-    {
-      "internalType": "string",
-      "name": "_imei",
-      "type": "string"
-    }
-  ],
-  "name": "getLostDevice",
-  "outputs": [
-    {
-      "internalType": "string",
-      "name": "",
-      "type": "string"
-    },
-    {
-      "internalType": "address",
-      "name": "",
-      "type": "address"
-    },
-    {
-      "internalType": "uint256",
-      "name": "",
-      "type": "uint256"
-    }
-  ],
-  "stateMutability": "view",
-  "type": "function"
-},
-{
-  "inputs": [
-    {
-      "internalType": "string",
-      "name": "_imei",
-      "type": "string"
-    }
-  ],
-  "name": "deviceExists",
-  "outputs": [
-    {
-      "internalType": "bool",
-      "name": "",
-      "type": "bool"
-    }
-  ],
-  "stateMutability": "view",
-  "type": "function"
-},
-{
-  "inputs": [
-    {
-      "internalType": "string",
-      "name": "_imei",
-      "type": "string"
-    }
-  ],
-  "name": "delistDevice",
-  "outputs": [],
-  "stateMutability": "nonpayable",
-  "type": "function"
-},
-{
-  "inputs": [],
-  "name": "getTotalReportedDevices",
-  "outputs": [
-    {
-      "internalType": "uint256",
-      "name": "",
-      "type": "uint256"
-    }
-  ],
-  "stateMutability": "view",
-  "type": "function"
-},
-{
-  "inputs": [],
-  "name": "getReportedImeis",
-  "outputs": [
-    {
-      "internalType": "string[]",
-      "name": "",
-      "type": "string[]"
-    }
-  ],
-  "stateMutability": "view",
-  "type": "function"
-}];
+// const IMEI_ABI = [{
+//   "anonymous": false,
+//   "inputs": [
+//     {
+//       "indexed": false,
+//       "internalType": "string",
+//       "name": "imei",
+//       "type": "string"
+//     },
+//     {
+//       "indexed": true,
+//       "internalType": "address",
+//       "name": "reporter",
+//       "type": "address"
+//     },
+//     {
+//       "indexed": false,
+//       "internalType": "uint256",
+//       "name": "timestamp",
+//       "type": "uint256"
+//     }
+//   ],
+//   "name": "DeviceDelisted",
+//   "type": "event"
+// },
+// {
+//   "anonymous": false,
+//   "inputs": [
+//     {
+//       "indexed": false,
+//       "internalType": "string",
+//       "name": "imei",
+//       "type": "string"
+//     },
+//     {
+//       "indexed": true,
+//       "internalType": "address",
+//       "name": "reporter",
+//       "type": "address"
+//     },
+//     {
+//       "indexed": false,
+//       "internalType": "uint256",
+//       "name": "timestamp",
+//       "type": "uint256"
+//     }
+//   ],
+//   "name": "DeviceReported",
+//   "type": "event"
+// },
+// {
+//   "inputs": [
+//     {
+//       "internalType": "string",
+//       "name": "_imei",
+//       "type": "string"
+//     }
+//   ],
+//   "name": "reportLostDevice",
+//   "outputs": [],
+//   "stateMutability": "nonpayable",
+//   "type": "function"
+// },
+// {
+//   "inputs": [
+//     {
+//       "internalType": "string",
+//       "name": "_imei",
+//       "type": "string"
+//     }
+//   ],
+//   "name": "getLostDevice",
+//   "outputs": [
+//     {
+//       "internalType": "string",
+//       "name": "",
+//       "type": "string"
+//     },
+//     {
+//       "internalType": "address",
+//       "name": "",
+//       "type": "address"
+//     },
+//     {
+//       "internalType": "uint256",
+//       "name": "",
+//       "type": "uint256"
+//     }
+//   ],
+//   "stateMutability": "view",
+//   "type": "function"
+// },
+// {
+//   "inputs": [
+//     {
+//       "internalType": "string",
+//       "name": "_imei",
+//       "type": "string"
+//     }
+//   ],
+//   "name": "deviceExists",
+//   "outputs": [
+//     {
+//       "internalType": "bool",
+//       "name": "",
+//       "type": "bool"
+//     }
+//   ],
+//   "stateMutability": "view",
+//   "type": "function"
+// },
+// {
+//   "inputs": [
+//     {
+//       "internalType": "string",
+//       "name": "_imei",
+//       "type": "string"
+//     }
+//   ],
+//   "name": "delistDevice",
+//   "outputs": [],
+//   "stateMutability": "nonpayable",
+//   "type": "function"
+// },
+// {
+//   "inputs": [],
+//   "name": "getTotalReportedDevices",
+//   "outputs": [
+//     {
+//       "internalType": "uint256",
+//       "name": "",
+//       "type": "uint256"
+//     }
+//   ],
+//   "stateMutability": "view",
+//   "type": "function"
+// },
+// {
+//   "inputs": [],
+//   "name": "getReportedImeis",
+//   "outputs": [
+//     {
+//       "internalType": "string[]",
+//       "name": "",
+//       "type": "string[]"
+//     }
+//   ],
+//   "stateMutability": "view",
+//   "type": "function"
+// }];
 
-const IMEI_ADDRESS = '0x4B7F2ca4502d5760A761035B342c4BCfeCD71051'; // Replace with Seplia's contract address
+// const IMEI_ADDRESS = '0xa13F073A5c5fd9510b4C1bF5C6C9c1c930223B5b'; // Replace with Seplia's contract address
 
 let web3;
 let IMEIContract;
@@ -185,7 +185,20 @@ async function initialize() {
       console.log(`Transactions will be sent from account: ${accountToUse}`);
 
       // Initialize contract
-      IMEIContract = new web3.eth.Contract(IMEI_ABI, IMEI_ADDRESS);
+       const response = await fetch('build/contracts/IMEI.json');
+      const data = await response.json();
+
+      // Get the network ID
+      const networkId = await web3.eth.net.getId();
+      const network = data.networks[networkId.toString()];
+
+      if (!network) {
+        throw new Error(`Contract address not found for network ID: ${networkId}`);
+      }
+
+      // Initialize contract
+      IMEIContract = new web3.eth.Contract(data.abi, network.address);
+      console.log("Contract address:",network.address);
 
       // Restore history visibility from localStorage
       const savedHistoryVisible = localStorage.getItem('historyVisible');
