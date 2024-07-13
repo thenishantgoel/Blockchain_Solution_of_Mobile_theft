@@ -1,6 +1,4 @@
 require('dotenv').config();
-console.log(`Private Key: ${process.env.PRIVATE_KEY}`);
-console.log(`Alchemy API URL: ${process.env.ALCHEMY_API_URL}`);
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 
 module.exports = {
