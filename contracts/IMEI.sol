@@ -36,7 +36,7 @@ contract IMEI {
     function delistDevice(string memory _imei) public {
     require(deviceExists(_imei), "Device with this IMEI does not exist.");
     emit DeviceDelisted(_imei, msg.sender, block.timestamp);
-}
+    }
 
     function getTotalReportedDevices() public view returns (uint256) {
         return reportedImeis.length;
@@ -66,4 +66,5 @@ contract IMEI {
         sum += digit;
     }
     return sum % 10 == 0;
+    }
 }
