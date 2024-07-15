@@ -299,6 +299,16 @@ async function reportLostDevice() {
 
   try {
     document.getElementById('details-container').style.display = 'none';
+    
+    // Client-side IMEI Luhn validation
+    if (!isValidIMEI(imei)) {
+      spinner.style.display = 'none';
+      document.getElementById('details-container').style.display = 'block';
+      document.getElementById('details-container').innerHTML = `<p>IMEI: <b>${imei}</b> is invalid.</p>`;
+      scrollToBottom();
+      clearTextBox();
+      return;
+    }
     const exists = await IMEIContract.methods.deviceExists(imei).call();
 
         if (exists) {
@@ -327,6 +337,23 @@ async function reportLostDevice() {
   } catch (error) {
     alert('Error: ' + error.message);
   } 
+}
+function isValidIMEI(imei) {
+  if (imei.length !== 15){
+    return false;
+  }
+  let sum = 0;
+  for (let i = 0; i < 15; i++) {
+    let digit = parseInt(imei.charAt(i));
+    if (i % 2 === 1) {
+      digit *= 2;
+      if (digit > 9) {
+        digit = (digit % 10) + 1;
+      }
+    }
+    sum += digit;
+  }
+  return sum % 10 === 0;
 }
 
 

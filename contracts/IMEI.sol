@@ -15,7 +15,7 @@ contract IMEI {
     event DeviceDelisted(string imei, address indexed reporter, uint256 timestamp);
 
     function reportLostDevice(string memory _imei) public {
-        require(bytes(_imei).length == 15, "Invalid IMEI length");
+        require(isValidIMEI(_imei), "Invalid IMEI number");
         require(!deviceExists(_imei), "IMEI already reported");
 
         uint256 currentTimestamp = block.timestamp;
@@ -35,8 +35,6 @@ contract IMEI {
     }
     function delistDevice(string memory _imei) public {
     require(deviceExists(_imei), "Device with this IMEI does not exist.");
-    // Logic to remove IMEI from reported list
-    // You might want to emit an event like DeviceDelisted
     emit DeviceDelisted(_imei, msg.sender, block.timestamp);
 }
 
@@ -47,4 +45,25 @@ contract IMEI {
     function getReportedImeis() public view returns (string[] memory) {
         return reportedImeis;
     }
+    function isValidIMEI(string memory _imei) internal pure returns (bool) {
+    bytes memory imeiBytes = bytes(_imei);
+    
+    // Check length
+    if (imeiBytes.length != 15) {
+        return false;
+    }
+    
+    // Check Luhn algorithm
+    uint256 sum = 0;
+    for (uint256 i = 0; i < 15; i++) {
+        uint256 digit = uint256(uint8(imeiBytes[i])) - 48; // Convert ASCII to digit
+        if (i % 2 == 1) {
+            digit *= 2;
+            if (digit > 9) {
+                digit = (digit % 10) + 1; // Same as adding the digits of the product
+            }
+        }
+        sum += digit;
+    }
+    return sum % 10 == 0;
 }
