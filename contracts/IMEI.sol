@@ -35,8 +35,21 @@ contract IMEI {
     }
     function delistDevice(string memory _imei) public {
     require(deviceExists(_imei), "Device with this IMEI does not exist.");
-    emit DeviceDelisted(_imei, msg.sender, block.timestamp);
+
+    // Remove from the mapping
+    delete lostDevices[_imei];
+
+    // Remove from the array
+    for (uint i = 0; i < reportedImeis.length; i++) {
+        if (keccak256(bytes(reportedImeis[i])) == keccak256(bytes(_imei))) {
+            reportedImeis[i] = reportedImeis[reportedImeis.length - 1];
+            reportedImeis.pop();
+            break;
+        }
     }
+
+    emit DeviceDelisted(_imei, msg.sender, block.timestamp);
+}
 
     function getTotalReportedDevices() public view returns (uint256) {
         return reportedImeis.length;

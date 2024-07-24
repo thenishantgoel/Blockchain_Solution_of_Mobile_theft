@@ -7,7 +7,7 @@ module.exports = {
       provider: () => new HDWalletProvider(process.env.PRIVATE_KEY, process.env.ALCHEMY_API_URL),
       network_id: 11155111, // Sepolia's network ID
       gas: 5500000,
-      gasPrice: 400000000000, // 400 Gwei
+      gasPrice: 50000000000, // 50 Gwei
     },
   },
   compilers: {
